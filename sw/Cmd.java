@@ -7,6 +7,8 @@ import java.io.Reader;
 import java.io.StreamTokenizer;
 import java.util.Vector;
 
+import si.Stateinfo;
+
 /**
  * This class shows how the CommandLine class
  * can be used. It initialized a CommandLine object
@@ -24,6 +26,8 @@ import java.util.Vector;
 public class Cmd 
 implements CommandLine.ICommand {
 
+	private Stateinfo sone = null, stwo = null;
+	
 	/**
 	 * Shows how to use the CommandLine class.
 	 * @param args The command-line parameters
@@ -31,6 +35,10 @@ implements CommandLine.ICommand {
 	 */
 	public static void main(String[] args) 
 	throws FileNotFoundException {
+		
+		Cmd commandprocessor = new Cmd();
+		commandprocessor.setinit();
+		
 		// This technique of reading from either 
 		// a script file or
 		// from the console was 'borrowed' from BeanShell.
@@ -51,6 +59,7 @@ implements CommandLine.ICommand {
 		jr.assignClassToCommnd("foo", "Cmd");
 		
 		jr.assignClassToCommnd("listall", "Listall");
+		jr.assignClassToCommnd("chdir", "Chdir");
 		
 		jr.init();
 		
@@ -61,9 +70,19 @@ implements CommandLine.ICommand {
 		// parse and execute commands.
 		jr.parseStream(new StreamTokenizer(inputSrc));
 
-		System.out.println("\nDone.");
+
+		
 	}
 
+	
+	public void setinit(){
+		sone = Stateinfo.getInstance();
+		sone.setCurdir( System.getProperty("user.dir") );		
+		//System.out.println( sone.getCurdir() );
+		
+	}
+	
+	
 	/**
 	 * This method is invoked when the FOO command is
 	 * used.
@@ -73,6 +92,10 @@ implements CommandLine.ICommand {
 			"Inside CommandLineTest.doIt(); v=" 
 			+ v
 		);
+		
+		sone = Stateinfo.getInstance();
+		String curdir = sone.getCurdir();
+		System.out.println( curdir );
 		return true;
 	}
 }
