@@ -60,6 +60,8 @@ implements CommandLine.ICommand {
 		
 		jr.assignClassToCommnd("listall", "Listall");
 		jr.assignClassToCommnd("chdir", "Chdir");
+		jr.assignClassToCommnd("curdir", "Curdir");
+		jr.assignClassToCommnd("tree", "Tree");
 		
 		jr.init();
 		

@@ -264,7 +264,8 @@ public class CommandLine {
 		while (eCmd.hasMoreElements()) {
 			String cmd = (String)eCmd.nextElement();
 			
-			if (cmd.equalsIgnoreCase("exit")) {
+			//define q as the quit / exit command
+			if (cmd.equalsIgnoreCase("q")) {
 				retValue = false;
 			} else if (cmd.equalsIgnoreCase("help")) {
 				cmdHelp();
@@ -299,11 +300,13 @@ public class CommandLine {
 		long tickTotal = tickEnd - tickStart;
 		DecimalFormat df = new DecimalFormat();
 		df.setDecimalSeparatorAlwaysShown(true);
+		/*
 		System.out.println(
 			"  completed: " 
 			+ df.format(tickTotal) 
 			+ " msecs"
 		);
+		*/
 
 		return retValue;
 	}
