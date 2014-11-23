@@ -16,15 +16,21 @@ implements CommandLine.ICommand {
 	
 	public boolean doIt(Vector v) {
 		
+		boolean r;
+		r = new String("retreat").equals(v.get(1));
+
 		sone = Stateinfo.getInstance();
 		String curdir = sone.getCurdir();
-		curdir = curdir + "/" + v.elementAt(1);
 		
-		
-		
-		sone.setCurdir( curdir );
-		System.out.println( curdir );
-				
+		if ( r == true ){
+			int lastslash = curdir.lastIndexOf("/");
+			curdir = curdir.substring(0, lastslash);
+			sone.setCurdir( curdir );
+		}else{	
+			curdir = curdir + "/" + v.elementAt(1);
+			sone.setCurdir( curdir );
+			System.out.println( curdir );
+		}		
 		return true;
 	}
 }

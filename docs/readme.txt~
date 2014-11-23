@@ -51,6 +51,20 @@ For this problem, we turn to Johnson et al and the Singleton class. This is foun
 
 iii. Layout and compilation of the program.
 
+This project is laid out as follows:
+
+-------sw------	Chdir.java
+	|	Cmd.java
+	|	CommandBase.java
+	|	CommandLine.java
+	|	Curdir.java
+	|	Listall.java
+	|	Tree.java
+	|
+	si-----	Stateinfo.java
+
+-------docs-----readme.txt (this document)
+
 All classes may be compiled by issuing the
 	javac *.java 
 command.  In the first case, this is not necessary since the class files are distributed with the source files.
@@ -72,11 +86,24 @@ tree		lists a directory tree descending from the current
 
 curdir		shows the current directory
 
-chdir <dirname>	changes the current directory. If dirname=retreat, 
+chdir <dirname>	changes the current directory. If dirname=retreat,
+		(command is chdir retreat) 
 		changes the current directory to the parent directory.
 
+q		quit the application.
 
-When the program is run, the current directory is set to that in which Cmd.class is located.
+When the program is run, the current directory is set to that in which Cmd.class is located.  The chdir retreat option will 'reverse' back up the directory hierachy, to / if necessary.
+
+v. Critique and Future Improvements.
+
+The implemenations of many principles are highly conservative and chosen for ease of understanding more than optimal performance.  In particular, the implementation of the Singleton class is not thread safe.  Futhermore, modern software engineering practice has become critical of the use of Singletons per se, and some mother-hen debuggers will issue a warning if one is detected.  As one would expect, no adeqaute replacement has been identified, so the method of persisting state data which was apparently good enough for MIT CS 305 in 1990 has been used here.
+
+Java has many types of list and list comprehensions.  The generic LinkedList<> type may be better fit for this problem, but the File type is simple and readily understood, so (whilst understanding its limitations) it has been used here.
+
+Given time, more internal validation is required.  For instance, it is possible to 'change to' a nonexistant directory, which will then cause a NullPointer exception if the listall command is executed on it.
+
+Given time, some use should be made of an ncurses-type library to draw a more descriptive 'tree' diagram of diretory and subdirectory and file structure.
+
 
 
 
